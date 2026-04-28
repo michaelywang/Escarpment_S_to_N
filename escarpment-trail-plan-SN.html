@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Escarpment Traverse — South to North · Alternative Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400&family=JetBrains+Mono:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:        #eee5d2;
+    --paper-deep:   #e3d8bf;
+    --paper-shade:  #d2c39e;
+    --ink:          #1a1a17;
+    --ink-soft:     #3d3a32;
+    --ink-light:    #6b6557;
+    --rust:         #8a3a1f;
+    --rust-deep:    #5e2310;
+    --moss:         #5a6a3a;
+    --moss-deep:    #3a4a26;
+    --slate:        #4a5560;
+    --gold:         #b8862c;
+    --teal:         #2c5560;
+    --rule:         #1a1a17;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.55;
+    background-image:
+      radial-gradient(circle at 80% 30%, rgba(44, 85, 96, 0.025) 0%, transparent 40%),
+      radial-gradient(circle at 20% 70%, rgba(138, 58, 31, 0.028) 0%, transparent 45%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.05 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .display { font-family: 'Fraunces', serif; }
+
+  /* ============ ALT BANNER ============ */
+  .alt-banner {
+    background: var(--teal);
+    color: var(--paper);
+    padding: 8px 6vw;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .alt-banner span:first-child::before {
+    content: "◇ ";
+    color: var(--gold);
+  }
+
+  /* ============ HEADER ============ */
+  .masthead {
+    border-bottom: 3px double var(--ink);
+    padding: 28px 0 18px;
+    margin: 0 6vw 0;
+  }
+
+  .masthead-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--ink-light);
+    margin-bottom: 18px;
+  }
+
+  .masthead h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: clamp(48px, 9vw, 128px);
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+  }
+
+  .masthead h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--teal);
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+  }
+
+  .direction-arrow {
+    display: inline-block;
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    color: var(--gold);
+  }
+
+  .masthead-deck {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    margin-top: 22px;
+    align-items: end;
+  }
+
+  .deck-text {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(16px, 1.6vw, 22px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink-soft);
+    line-height: 1.4;
+    max-width: 56ch;
+  }
+
+  .deck-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    text-align: right;
+    line-height: 1.7;
+  }
+  .deck-meta strong { color: var(--ink); font-weight: 600; }
+
+  /* ============ MAIN LAYOUT ============ */
+  main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 6vw 80px;
+  }
+
+  section { padding: 56px 0 24px; border-bottom: 1px solid var(--paper-shade); }
+  section:last-of-type { border-bottom: none; }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-label::before {
+    content: "";
+    display: inline-block;
+    width: 28px; height: 1px;
+    background: var(--teal);
+  }
+  .section-label .num { color: var(--ink-light); }
+
+  h2.section-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: clamp(30px, 4.5vw, 54px);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 22px;
+    font-variation-settings: "opsz" 96;
+  }
+  h2.section-title em { font-style: italic; font-weight: 400; color: var(--teal); }
+
+  h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--ink);
+    margin: 18px 0 8px;
+  }
+
+  p { margin-bottom: 12px; }
+  p strong { font-weight: 600; color: var(--ink); }
+
+  /* ============ TWO-COL ============ */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; gap: 24px; } }
+
+  /* ============ CARDS ============ */
+  .card {
+    background: var(--paper-deep);
+    border: 1px solid var(--ink);
+    padding: 22px 24px;
+    position: relative;
+  }
+  .card.warn {
+    border-color: var(--rust);
+    background: linear-gradient(180deg, #f0d9cc 0%, var(--paper-deep) 100%);
+  }
+  .card.good {
+    border-color: var(--teal);
+    background: linear-gradient(180deg, #d6dfe2 0%, var(--paper-deep) 100%);
+  }
+  .card.note {
+    background: var(--paper);
+    border-style: dashed;
+  }
+  .card-head {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--ink);
+  }
+  .card.warn .card-head { border-color: var(--rust); }
+  .card.good .card-head { border-color: var(--teal); }
+  .card-head .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust);
+    font-weight: 600;
+  }
+  .card.good .card-head .tag { color: var(--teal); }
+  .card-head h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  ul.tight { list-style: none; padding: 0; }
+  ul.tight li { padding: 6px 0; border-bottom: 1px dotted var(--paper-shade); font-size: 15px; line-height: 1.45; }
+  ul.tight li:last-child { border-bottom: none; }
+  ul.tight li::before { content: "—"; color: var(--teal); margin-right: 10px; font-weight: 600; }
+
+  /* ============ STAT STRIP ============ */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin: 32px 0 8px;
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+  }
+  @media (max-width: 700px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+  .stat {
+    padding: 18px 16px;
+    border-right: 1px solid var(--ink);
+    text-align: left;
+  }
+  .stat:last-child { border-right: none; }
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 4px;
+  }
+  .stat-val {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 1;
+    color: var(--ink);
+    font-variation-settings: "opsz" 96;
+  }
+  .stat-unit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--teal);
+    margin-left: 4px;
+  }
+  .stat-sub {
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  /* ============ KNEE COMPARISON TABLE ============ */
+  .knee-compare {
+    margin: 32px 0 16px;
+    background: var(--paper-deep);
+    border: 1px solid var(--ink);
+    padding: 0;
+    overflow: hidden;
+  }
+  .knee-compare-head {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .knee-compare-head > div {
+    padding: 14px 16px;
+    border-right: 1px solid #444;
+  }
+  .knee-compare-head > div:last-child { border-right: none; }
+  .knee-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    border-top: 1px solid var(--paper-shade);
+    background: var(--paper);
+  }
+  .knee-row > div {
+    padding: 14px 16px;
+    border-right: 1px solid var(--paper-shade);
+    font-size: 14.5px;
+    line-height: 1.4;
+  }
+  .knee-row > div:last-child { border-right: none; }
+  .knee-row .feature { font-family: 'Fraunces', serif; font-weight: 600; font-size: 16px; }
+  .knee-row .verdict { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; }
+  .knee-row .verdict.sn { color: var(--teal); }
+  .knee-row .verdict.ns { color: var(--rust); }
+  .knee-row .verdict.tie { color: var(--ink-light); }
+  .knee-row.summary {
+    background: var(--paper-deep);
+    border-top: 2px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    font-weight: 600;
+  }
+  .knee-row.summary > div { padding: 18px 16px; }
+  @media (max-width: 700px) {
+    .knee-compare-head, .knee-row { grid-template-columns: 1fr; }
+    .knee-compare-head > div, .knee-row > div { border-right: none; border-bottom: 1px solid var(--paper-shade); }
+  }
+
+  /* ============ DAY HEADER ============ */
+  .day-header {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    align-items: end;
+    gap: 24px;
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .day-num {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 88px;
+    line-height: 0.85;
+    color: var(--teal);
+    letter-spacing: -0.04em;
+  }
+  .day-info h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 28px;
+    margin: 0;
+    color: var(--ink);
+  }
+  .day-info .day-sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-top: 6px;
+  }
+  .day-stats {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .day-stats strong { color: var(--ink); font-weight: 600; }
+
+  .leg {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 24px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--paper-shade);
+  }
+  .leg:last-child { border-bottom: none; }
+  .leg-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .leg-time .clock { font-weight: 600; font-size: 16px; }
+  .leg-time .mile {
+    color: var(--teal);
+    font-size: 11px;
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+  .leg-body h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+  .leg-body h4 .elev {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-light);
+    font-weight: 400;
+    margin-left: 8px;
+    letter-spacing: 0.05em;
+  }
+  .leg-body p { font-size: 15px; line-height: 1.55; color: var(--ink-soft); margin-bottom: 0; }
+
+  .difficulty {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-right: 12px;
+  }
+  .diff-bars { display: inline-flex; gap: 2px; }
+  .diff-bars i {
+    display: inline-block;
+    width: 8px; height: 10px;
+    background: var(--paper-shade);
+  }
+  .diff-bars i.on { background: var(--teal); }
+  .diff-bars i.warn { background: var(--rust); }
+
+  /* ============ ELEVATION PROFILE ============ */
+  .elev-wrap {
+    margin: 24px 0 8px;
+    padding: 24px 8px 8px;
+    background: var(--paper-deep);
+    border: 1px solid var(--ink);
+    overflow: hidden;
+  }
+  .elev-wrap svg { width: 100%; height: auto; display: block; }
+
+  /* ============ DIRECTION COMPARE BAR ============ */
+  .compare-bar {
+    margin: 16px 0;
+    background: var(--paper-deep);
+    border: 1px solid var(--ink);
+    padding: 22px 28px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  @media (max-width: 700px) { .compare-bar { grid-template-columns: 1fr; gap: 16px; text-align: center; } }
+  .dir-box .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 4px;
+  }
+  .dir-box .name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 24px;
+  }
+  .dir-box.original .name { color: var(--rust); }
+  .dir-box.alt .name { color: var(--teal); }
+  .dir-box .desc {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 4px;
+    font-style: italic;
+  }
+  .vs-mark {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 28px;
+    color: var(--gold);
+    font-weight: 300;
+  }
+
+  /* ============ REASONING BOX ============ */
+  .reasoning {
+    background: linear-gradient(135deg, var(--paper-deep) 0%, var(--paper) 100%);
+    border-left: 4px solid var(--gold);
+    padding: 20px 24px;
+    margin: 18px 0;
+  }
+  .reasoning h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+
+  /* ============ CONTINGENCIES ============ */
+  .contingency {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 24px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--paper-shade);
+  }
+  .contingency:last-child { border-bottom: none; }
+  .scenario-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 6px 12px;
+    height: fit-content;
+    white-space: nowrap;
+  }
+  .scenario-tag.warn { background: var(--rust); }
+  .scenario-tag.good { background: var(--teal); }
+  .scenario-body h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .scenario-body p { font-size: 15px; color: var(--ink-soft); margin-bottom: 6px; }
+
+  /* ============ HOME-BY ============ */
+  .home-by-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+  .home-by-table th {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .home-by-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--paper-shade);
+  }
+  .home-by-table tr:last-child td { border-bottom: 2px solid var(--ink); font-weight: 600; }
+
+  /* ============ FOOTER ============ */
+  footer {
+    border-top: 3px double var(--ink);
+    padding: 36px 6vw 60px;
+    margin-top: 40px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-light);
+    line-height: 1.7;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  @media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr; } }
+  footer h5 {
+    font-family: 'Fraunces', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  /* drop cap */
+  .lede::first-letter {
+    font-family: 'Fraunces', serif;
+    font-weight: 900;
+    font-size: 5em;
+    float: left;
+    line-height: 0.85;
+    margin: 0.05em 0.08em -0.1em 0;
+    color: var(--teal);
+  }
+
+  /* recommendation banner */
+  .recommendation-banner {
+    background: linear-gradient(90deg, var(--teal) 0%, #1f4048 100%);
+    color: var(--paper);
+    padding: 28px 32px;
+    margin: 24px 0;
+    border: 1px solid var(--ink);
+  }
+  .recommendation-banner .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .recommendation-banner .verdict {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(22px, 2.5vw, 30px);
+    line-height: 1.25;
+    font-style: italic;
+  }
+  .recommendation-banner .verdict strong { font-weight: 700; font-style: normal; color: var(--gold); }
+</style>
+</head>
+<body>
+
+<div class="alt-banner">
+  <span>Alternative Plan · Direction Reversed</span>
+  <span>Companion to N→S Plan</span>
+</div>
+
+<header class="masthead">
+  <div class="masthead-top">
+    <span>Vol. I · No. 2</span>
+    <span>Trip Dossier</span>
+    <span>Catskill Forest Preserve</span>
+    <span>Aug 28 — 30, 2026</span>
+  </div>
+  <h1>Schutt <span class="direction-arrow">↑</span> Windham</h1>
+  <h1 style="margin-top: -8px;"><em>Reversed</em></h1>
+  <div class="masthead-deck">
+    <div class="deck-text">
+      The same 23.9 miles, walked the other way. Built around a single question: does going south-to-north meaningfully spare the knees, or does it just trade one kind of suffering for another?
+    </div>
+    <div class="deck-meta">
+      Departure · <strong>Chatham, NJ</strong><br>
+      Direction · <strong>Schutt Rd → NY-23</strong><br>
+      Group · <strong>4–10 hikers, ~35 yrs</strong><br>
+      Vehicles · <strong>4+</strong>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ THE QUESTION ============ -->
+<section id="question">
+  <div class="section-label"><span class="num">§ 01</span> The Knee Question</div>
+  <h2 class="section-title">Is S→N <em>actually</em> easier on knees?</h2>
+  <p class="lede" style="max-width: 70ch;">Conventional wisdom in the Catskill backpacking community is that the Escarpment Trail "should" be hiked south-to-north. The reasoning given is usually vague — "save the views for last," "the climbs are gentler that way." For a group with knee concerns, vague isn't good enough. The honest answer requires looking at which direction climbs vs. descends each of the three or four sections that actually matter for joint stress.</p>
+
+  <p style="max-width: 70ch;">The headline finding: <strong>yes, S→N is meaningfully easier on knees</strong> — but not by as much as the trail community implies, and it comes with real tradeoffs. The single biggest factor is the Blackhead east face. It is the most eroded stretch of the entire trail, with rock scrambles, loose footing, and at least one ledge where packs come off. <strong>You want to climb that face, not descend it.</strong> S→N has you climbing it. N→S has you descending it.</p>
+
+  <div class="compare-bar">
+    <div class="dir-box original">
+      <div class="label">Original Plan</div>
+      <div class="name">North → South</div>
+      <div class="desc">NY-23 to Schutt Rd. Front-loads Windham climb, descends Blackhead east.</div>
+    </div>
+    <div class="vs-mark">vs.</div>
+    <div class="dir-box alt">
+      <div class="label">This Plan</div>
+      <div class="name">South → North</div>
+      <div class="desc">Schutt Rd to NY-23. Climbs Blackhead east, descends Windham gradually.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KNEE-BY-KNEE COMPARISON ============ -->
+<section id="comparison">
+  <div class="section-label"><span class="num">§ 02</span> Section-by-Section</div>
+  <h2 class="section-title">Where the directions <em>actually differ</em>.</h2>
+  <p style="max-width: 70ch;">Five sections of the trail have meaningful asymmetric difficulty. For each, the table below states what each direction asks of the knees and which is harder. The remaining ~17 miles of the trail are roughly direction-symmetric — rolling ridge with similar effort either way.</p>
+
+  <div class="knee-compare">
+    <div class="knee-compare-head">
+      <div>Trail Section</div>
+      <div>N→S (Original)</div>
+      <div>S→N (Alternative)</div>
+      <div>Knee Verdict</div>
+    </div>
+    <div class="knee-row">
+      <div class="feature">Windham High Peak<br><span style="font-size: 11px; color: var(--ink-light); font-weight: 400;">~1,750 ft over 3.4 mi · gradual switchbacks</span></div>
+      <div>Climb (3.4 mi up at start)</div>
+      <div>Descend (3.4 mi down at end)</div>
+      <div class="verdict sn">S→N better<br><span style="font-size: 10px; letter-spacing: 0; text-transform: none; font-weight: 400; font-style: italic;">A long, gradual, switchbacked descent on dirt is the friendliest possible way to lose 1,750 ft.</span></div>
+    </div>
+    <div class="knee-row">
+      <div class="feature">Blackhead east face<br><span style="font-size: 11px; color: var(--ink-light); font-weight: 400;">~1,300 ft over <1 mi · eroded, loose, scrambles</span></div>
+      <div>Descend</div>
+      <div>Climb</div>
+      <div class="verdict sn">S→N <strong>much</strong> better<br><span style="font-size: 10px; letter-spacing: 0; text-transform: none; font-weight: 400; font-style: italic;">This is the single most important section for knees. Climbing eroded rock = effort. Descending it = injury risk.</span></div>
+    </div>
+    <div class="knee-row">
+      <div class="feature">Blackhead west face<br><span style="font-size: 11px; color: var(--ink-light); font-weight: 400;">~800 ft over <1 mi · steep but cleaner</span></div>
+      <div>Climb (from Batavia Kill)</div>
+      <div>Descend (toward Batavia Kill)</div>
+      <div class="verdict ns">N→S better<br><span style="font-size: 10px; letter-spacing: 0; text-transform: none; font-weight: 400; font-style: italic;">Mild win for N→S — but the western face is far less eroded than the east, so the descent here is manageable either way.</span></div>
+    </div>
+    <div class="knee-row">
+      <div class="feature">North Point area scrambles<br><span style="font-size: 11px; color: var(--ink-light); font-weight: 400;">a few exposed ledge moves; one "packs off" climb</span></div>
+      <div>Descend (south side approach)</div>
+      <div>Climb (south side approach)</div>
+      <div class="verdict sn">Slight S→N edge<br><span style="font-size: 10px; letter-spacing: 0; text-transform: none; font-weight: 400; font-style: italic;">Climbing scrambles is reliably less stressful than descending them, especially with packs.</span></div>
+    </div>
+    <div class="knee-row">
+      <div class="feature">Stoppel/Arizona col<br><span style="font-size: 11px; color: var(--ink-light); font-weight: 400;">~700 ft loss/gain over 1.5 mi · rocky, switchbacked</span></div>
+      <div>Climb (from Dutcher Notch)</div>
+      <div>Descend (to Dutcher Notch)</div>
+      <div class="verdict ns">N→S better<br><span style="font-size: 10px; letter-spacing: 0; text-transform: none; font-weight: 400; font-style: italic;">The west side of Arizona has steep switchbacks and rock scrambling. Climbing them spares the knees more than descending.</span></div>
+    </div>
+    <div class="knee-row summary">
+      <div class="feature">Net knee verdict</div>
+      <div>2 sections favor</div>
+      <div>3 sections favor (incl. the big one)</div>
+      <div class="verdict sn">S→N wins</div>
+    </div>
+  </div>
+
+  <div class="reasoning">
+    <h4>How much better, really?</h4>
+    <p style="font-size: 14.5px; margin-bottom: 10px;">The knee-stress delta is dominated by <strong>Blackhead's east face</strong>. That single 1.1-mile section is so much rougher than anywhere else on the trail that flipping its direction does most of the work. SectionHiker's account specifically calls out the east descent as "where the storm took its toll on the trail with many areas heavily eroded" — in a guide written by an experienced AMC trip leader. AllTrails reviews echo this: "the trail starts to descend rapidly" out of Blackhead, with rock scrambling required.</p>
+    <p style="font-size: 14.5px; margin-bottom: 10px;">Trade against this: N→S has the modest Stoppel/Arizona descent and the west-face Blackhead descent on its side. These are real, but neither is as eroded or as long as the east face.</p>
+    <p style="font-size: 14.5px;"><strong>Bottom line:</strong> S→N reduces total knee-stress by roughly 30–40% in the worst stretches, with most of that gain concentrated in the Blackhead east section and the Windham final descent. For a hiker with a known knee issue, this is a meaningful improvement. For a hiker without one, the difference is felt mostly as "less afraid going down" rather than "less tired."</p>
+  </div>
+</section>
+
+<!-- ============ THE TRADEOFFS ============ -->
+<section id="tradeoffs">
+  <div class="section-label"><span class="num">§ 03</span> What S→N Costs You</div>
+  <h2 class="section-title">The <em>tradeoffs</em>.</h2>
+  <p style="max-width: 70ch;">It is not a free lunch. Three real costs come with reversing the direction.</p>
+
+  <div class="two-col" style="margin-top: 16px;">
+    <div class="card warn">
+      <div class="card-head"><span class="tag">Cost #1</span><h4>Friday-night logistics get harder</h4></div>
+      <p style="font-size: 14.5px;">In the N→S plan, you start at NY-23 and lodging in Windham (5–10 min from the trailhead) sits next to your start. Friday night is simple: drop cars, eat dinner, sleep, walk to the trail.</p>
+      <p style="font-size: 14.5px;">In the S→N plan, you start at <strong>Schutt Road</strong>, which is the southern end. The Friday-night options near here are: (a) car-camp at North-South Lake — but that's the campground with the strict 9 PM check-in cutoff that's basically impossible to make from Chatham after work, or (b) lodge in Tannersville/Hunter/Haines Falls. Those towns have lodging, but it is more limited and pricier than Windham. <strong>Or:</strong> still lodge in Windham (where the variety is) and eat the 35-minute drive to the southern trailhead Saturday morning.</p>
+    </div>
+
+    <div class="card warn">
+      <div class="card-head"><span class="tag">Cost #2</span><h4>Blackhead climb on Day 2 with tired legs</h4></div>
+      <p style="font-size: 14.5px;">In S→N, the Blackhead east face climb (~1,300 ft in <1 mi, the trail's hardest single climb) lands on <strong>Sunday morning</strong> with a pack that's been carried for ~14 miles already. Even though we'll have lightened by some food and water weight, this is a significant Day-2 effort.</p>
+      <p style="font-size: 14.5px;">In N→S, the same section is a <strong>Saturday-afternoon descent</strong> with relatively fresh legs (and full of consequence — but not as cardiovascularly demanding). S→N front-loads Day 2 with the trail's hardest climb. If anyone has tired legs Sunday morning, it shows up here.</p>
+    </div>
+
+    <div class="card warn" style="margin-top: 18px;">
+      <div class="card-head"><span class="tag">Cost #3</span><h4>The "best views last" rule cuts both ways</h4></div>
+      <p style="font-size: 14.5px;">The conventional wisdom says S→N saves the best views for the end. It's true that North Point, Newman's Ledge, Inspiration Point, and Artist Rock are the most photogenic stretch — and in S→N you hit them on Saturday afternoon when light is best for photography (the cliffs face east). But you pay for it: by the time you reach Windham High Peak's summit Sunday afternoon, you've been on the trail for 22 miles and may not have the energy to enjoy it. <strong>S→N gives you better Saturday photos and a more anticlimactic Sunday finish.</strong> N→S gives you a strong Sunday morning of cliff-walking and a quiet finish at Schutt Road.</p>
+    </div>
+
+    <div class="card good" style="margin-top: 0;">
+      <div class="card-head"><span class="tag">Cost #4 (smaller)</span><h4>Saturday water plan changes</h4></div>
+      <p style="font-size: 14.5px;">In N→S, Batavia Kill Lean-To (mile 8.6) is a critical mid-day water stop right before Blackhead. In S→N, Batavia Kill is at mile ~15.3 — well past the camping target — and Dutcher Notch spring (mile ~12.4 from south) becomes the key Saturday water source instead. Both flow but slowly in late August. Plan stays workable; just different stops.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ELEVATION PROFILE S→N ============ -->
+<section id="profile">
+  <div class="section-label"><span class="num">§ 04</span> Elevation Profile · S→N</div>
+  <h2 class="section-title">Read <em>left to right</em>.</h2>
+  <p style="max-width: 70ch;">Same trail, mirrored. Saturday is a long, gradual climb with two notable bumps (North Point area and Stoppel Point). Sunday opens with the steep climb up Blackhead's east face — the hardest single climb on the trail — then becomes a long, friendly descent off Windham.</p>
+
+  <div class="elev-wrap">
+    <svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <pattern id="grid2" width="60" height="40" patternUnits="userSpaceOnUse">
+          <path d="M 60 0 L 0 0 0 40" fill="none" stroke="#d2c39e" stroke-width="0.5"/>
+        </pattern>
+        <linearGradient id="profileFill2" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#2c5560" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#2c5560" stop-opacity="0.05"/>
+        </linearGradient>
+      </defs>
+      <rect width="900" height="280" fill="url(#grid2)" opacity="0.5"/>
+
+      <!-- Y-axis labels -->
+      <text x="10" y="60" font-family="JetBrains Mono, monospace" font-size="9" fill="#6b6557">4,000'</text>
+      <text x="10" y="120" font-family="JetBrains Mono, monospace" font-size="9" fill="#6b6557">3,500'</text>
+      <text x="10" y="180" font-family="JetBrains Mono, monospace" font-size="9" fill="#6b6557">3,000'</text>
+      <text x="10" y="240" font-family="JetBrains Mono, monospace" font-size="9" fill="#6b6557">2,500'</text>
+      <text x="10" y="278" font-family="JetBrains Mono, monospace" font-size="9" fill="#6b6557">2,000'</text>
+
+      <!-- Saturday/Sunday divider for S→N -->
+      <line x1="490" y1="20" x2="490" y2="280" stroke="#2c5560" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+      <text x="492" y="32" font-family="JetBrains Mono, monospace" font-size="9" fill="#2c5560" letter-spacing="1">SAT NIGHT CAMP</text>
+
+      <!-- Mirrored profile: this is the N→S path reversed left-to-right -->
+      <!-- Original was: 220 215 175 90 105 95 130 120 145 110 75 130 65 60 110 130 165 145 100 90 130 165 175 195 200 215 240 250 -->
+      <!-- Reversed: 250 240 215 200 195 175 165 130 90 100 145 165 130 110 60 65 130 75 110 145 120 130 95 105 90 175 215 220 -->
+      <path d="M 50 250 
+               L 80 240
+               L 110 215
+               L 140 200
+               L 170 195
+               L 200 175
+               L 230 165
+               L 260 130
+               L 290 90
+               L 320 100
+               L 350 145
+               L 380 165
+               L 410 130
+               L 440 110
+               L 470 60
+               L 495 65
+               L 525 130
+               L 555 75
+               L 585 110
+               L 615 145
+               L 650 120
+               L 685 130
+               L 715 95
+               L 745 105
+               L 775 90
+               L 800 175
+               L 830 215
+               L 870 220
+               L 870 280
+               L 50 280 Z"
+            fill="url(#profileFill2)"/>
+      <path d="M 50 250 
+               L 80 240
+               L 110 215
+               L 140 200
+               L 170 195
+               L 200 175
+               L 230 165
+               L 260 130
+               L 290 90
+               L 320 100
+               L 350 145
+               L 380 165
+               L 410 130
+               L 440 110
+               L 470 60
+               L 495 65
+               L 525 130
+               L 555 75
+               L 585 110
+               L 615 145
+               L 650 120
+               L 685 130
+               L 715 95
+               L 745 105
+               L 775 90
+               L 800 175
+               L 830 215
+               L 870 220"
+            fill="none" stroke="#2c5560" stroke-width="2"/>
+
+      <!-- Peak markers (mirrored from original) -->
+      <circle cx="170" cy="195" r="3" fill="#8a3a1f"/>
+      <text x="170" y="180" font-family="Fraunces, serif" font-size="9" font-style="italic" fill="#3d3a32" text-anchor="middle">North Pt</text>
+
+      <circle cx="290" cy="90" r="3.5" fill="#8a3a1f"/>
+      <text x="290" y="78" font-family="Fraunces, serif" font-size="10" font-style="italic" fill="#1a1a17" text-anchor="middle">Stoppel Pt 3,420'</text>
+
+      <circle cx="495" cy="65" r="4" fill="#8a3a1f"/>
+      <text x="495" y="53" font-family="Fraunces, serif" font-size="11" font-weight="600" fill="#8a3a1f" text-anchor="middle">Blackhead 3,940'</text>
+
+      <circle cx="555" cy="75" r="3.5" fill="#8a3a1f"/>
+      <text x="565" y="63" font-family="Fraunces, serif" font-size="10" font-style="italic" fill="#1a1a17" text-anchor="start">Burnt Knob</text>
+
+      <circle cx="745" cy="105" r="3.5" fill="#8a3a1f"/>
+      <text x="745" y="93" font-family="Fraunces, serif" font-size="10" font-style="italic" fill="#1a1a17" text-anchor="middle">Windham HP 3,524'</text>
+
+      <!-- Highlight the Blackhead east climb -->
+      <rect x="450" y="55" width="50" height="225" fill="#8a3a1f" opacity="0.08"/>
+      <text x="475" y="270" font-family="JetBrains Mono, monospace" font-size="9" fill="#8a3a1f" text-anchor="middle" font-weight="600">SUN AM CLIMB</text>
+
+      <!-- X-axis miles (S→N: 0 at Schutt, 23.9 at NY-23) -->
+      <line x1="50" y1="280" x2="870" y2="280" stroke="#1a1a17" stroke-width="1.5"/>
+      <g font-family="JetBrains Mono, monospace" font-size="9" fill="#6b6557">
+        <text x="50" y="298" text-anchor="middle">0</text>
+        <text x="187" y="298" text-anchor="middle">4</text>
+        <text x="324" y="298" text-anchor="middle">8</text>
+        <text x="461" y="298" text-anchor="middle">12</text>
+        <text x="598" y="298" text-anchor="middle">16</text>
+        <text x="735" y="298" text-anchor="middle">20</text>
+        <text x="870" y="298" text-anchor="middle">23.9</text>
+      </g>
+      <text x="460" y="315" font-family="JetBrains Mono, monospace" font-size="10" fill="#1a1a17" text-anchor="middle" letter-spacing="1.5">DISTANCE FROM SCHUTT RD TRAILHEAD (MILES)</text>
+
+      <text x="265" y="48" font-family="JetBrains Mono, monospace" font-size="11" fill="#1f4048" letter-spacing="2" text-anchor="middle" font-weight="600">SATURDAY</text>
+      <text x="685" y="48" font-family="JetBrains Mono, monospace" font-size="11" fill="#1f4048" letter-spacing="2" text-anchor="middle" font-weight="600">SUNDAY</text>
+    </svg>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-label">Distance</div>
+      <div class="stat-val">23.9<span class="stat-unit">mi</span></div>
+      <div class="stat-sub">Same as N→S</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Sat Distance</div>
+      <div class="stat-val">~12.5<span class="stat-unit">mi</span></div>
+      <div class="stat-sub">To camp at Arizona col</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Sun Distance</div>
+      <div class="stat-val">~11.4<span class="stat-unit">mi</span></div>
+      <div class="stat-sub">Blackhead + descent</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Sat Gain</div>
+      <div class="stat-val">~2,400<span class="stat-unit">ft</span></div>
+      <div class="stat-sub">Gradual</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Sun Gain</div>
+      <div class="stat-val">~2,000<span class="stat-unit">ft</span></div>
+      <div class="stat-sub">Front-loaded · Blackhead</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FRIDAY S→N ============ -->
+<section id="friday">
+  <div class="section-label"><span class="num">§ 05</span> Friday — Pre-Staging</div>
+  <h2 class="section-title">Friday in the <em>S→N</em> world.</h2>
+  <p style="max-width: 70ch;">The Friday-night problem from the original plan now affects the start instead of the end. The same 9 PM gate at North-South Lake still applies. The sensible move is similar but mirrored: lodge in Windham (best lodging pool), then drive south to start. Or lodge in Tannersville/Hunter to be near the start. Both options work; Windham is more comfortable and more available.</p>
+
+  <div class="two-col">
+    <div>
+      <h3>Recommended Friday plan (Windham lodging, drive south Sat AM)</h3>
+      <ul class="tight">
+        <li><strong>4:00–5:00 PM</strong> — Depart Chatham, NJ.</li>
+        <li><strong>7:00–8:00 PM</strong> — Arrive Windham area. Drop 2+ cars at NY-23 / Cross Road parking (the <em>finish</em> in this plan).</li>
+        <li><strong>8:00–8:45 PM</strong> — Convoy 35 min south to Schutt Rd parking. Drop 2 cars at the start. Note: do <strong>not</strong> attempt to enter North-South Lake Campground for parking after 9 PM; the Schutt Rd day-use lot just outside the campground is fine for overnight parking.</li>
+        <li><strong>9:30 PM</strong> — Drive back to Windham lodging (35 min).</li>
+        <li><strong>10:30 PM</strong> — Late dinner / sleep.</li>
+        <li><strong>Sat 6:00 AM</strong> — Caravan from Windham south to Schutt Rd in 1 car. The hike begins from the start, ~7:30 AM.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Alternative: lodge near the start</h3>
+      <ul class="tight">
+        <li><strong>Tannersville / Hunter</strong> — has motels (Hunter Mountain Lodging, Black Bear Lodge) and Airbnbs. Closer to Schutt Rd start (~15 min drive). More limited and seasonal pricing on a Labor Day-adjacent weekend.</li>
+        <li><strong>Haines Falls</strong> — small town, very limited lodging, no notable restaurants. Useful only for cabin rentals.</li>
+        <li><strong>Saugerties / Catskill</strong> — full towns, plenty of options, but adds 30–40 min to Saturday morning drive.</li>
+        <li><strong>Verdict:</strong> still recommend Windham lodging unless someone in the group strongly prefers being near the start. The 35-minute Saturday morning drive is acceptable; the lodging quality is better.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card good" style="margin-top: 22px;">
+    <div class="card-head"><span class="tag">Same</span><h4>Shuttle logic is mirrored but identical in shape</h4></div>
+    <p>Park 2+ cars at finish (NY-23 in this plan) and 2 cars at start (Schutt Rd). Sunday: 2 drivers from finish drive ~35 min south to retrieve their cars. Same 1.5-hour shuttle gap.</p>
+  </div>
+</section>
+
+<!-- ============ SATURDAY S→N ============ -->
+<section id="saturday">
+  <div class="day-header">
+    <div class="day-num">SAT</div>
+    <div class="day-info">
+      <h3>Schutt Rd → Arizona col camp area</h3>
+      <div class="day-sub">Aug 29 · Day One on the Trail (S→N)</div>
+    </div>
+    <div class="day-stats">
+      DISTANCE · <strong>~12.5 mi</strong><br>
+      GAIN · <strong>~2,400 ft</strong><br>
+      LOSS · <strong>~1,200 ft</strong><br>
+      EST. MOVING · <strong>8–10 hr</strong>
+    </div>
+  </div>
+
+  <p style="max-width: 70ch;">Easier and more scenic than its N→S counterpart. The gradient is gentle for the first 6 miles — rolling cliff-edge ledges through some of the trail's most famous views — and only the climb up Stoppel Point and the rougher section past Dutcher Notch demand real work. <strong>Plan to be on the trail by 7:30 AM</strong> after the morning drive from Windham.</p>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">7:30 AM</div><div class="mile">Mile 0.0 · 2,100'</div></div>
+    <div class="leg-body">
+      <h4>Schutt Road Trailhead <span class="elev">START</span></h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i></i><i></i><i></i><i></i></span></span>The trail begins on a brief descent across two old railroad rights-of-way and a bridge, then climbs gently into hemlock forest. The first 0.7 mi is a warm-up.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">8:00</div><div class="mile">Mile 0.7 · 2,200'</div></div>
+    <div class="leg-body">
+      <h4>Layman Monument</h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i></i><i></i><i></i><i></i></span></span>Stone memorial to a fallen firefighter (1900). The trail makes a sharp turn here and the famous cliff-edge section begins.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">8:30</div><div class="mile">Mile 1.4 · 2,350'</div></div>
+    <div class="leg-body">
+      <h4>Inspiration Point &amp; Sunset Rock <span class="elev">VIEWPOINT</span></h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i></i><i></i><i></i><i></i></span></span>Open ledge with carved-stone names from the 1800s. Direct view west into Kaaterskill Clove with Kaaterskill High Peak directly opposite. <strong>First major view of the trip — pause for it.</strong></p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">9:15</div><div class="mile">Mile 2.7 · 2,400'</div></div>
+    <div class="leg-body">
+      <h4>Boulder Rock</h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i></i><i></i><i></i><i></i></span></span>Massive glacial erratic on the cliff edge.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">9:45</div><div class="mile">Mile 3.2 · 2,300'</div></div>
+    <div class="leg-body">
+      <h4>Catskill Mountain House site</h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i></i><i></i><i></i><i></i></span></span>Open meadow on the cliff lip; foundation outlines remain from the 1820s grand hotel that once stood here. Among the most-painted views in 19th-century American art.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">10:15</div><div class="mile">Mile 3.7 · 2,250'</div></div>
+    <div class="leg-body">
+      <h4>North Lake (interior parking)</h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i></i><i></i><i></i><i></i></span></span>Trail crosses the campground briefly. <strong>Last reliable bathroom of the trip.</strong> Refill water at the campground spigot if you can find one (operative in season). Day hikers everywhere.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">10:45</div><div class="mile">Mile 4.2 · 2,200'</div></div>
+    <div class="leg-body">
+      <h4>Artist Rock</h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i></i><i></i><i></i><i></i></span></span>Where Thomas Cole and Frederick Church sketched. Easy walking along the ledge.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">11:15</div><div class="mile">Mile 4.7 · 2,250'</div></div>
+    <div class="leg-body">
+      <h4>Lookout Rock &amp; Sunset Rock spur <span class="elev">+ 0.2 mi optional</span></h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i></i><i></i><i></i><i></i></span></span>Small yellow-blazed side trail.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">11:45</div><div class="mile">Mile 5.3 · 2,300'</div></div>
+    <div class="leg-body">
+      <h4>Newman's Ledge <span class="elev">VIEWPOINT</span></h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i></i><i></i><i></i><i></i></span></span>Sloping rock platform with sheer drop. A second extended stop. <strong>Lunch break</strong>, 45 min.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">1:15 PM</div><div class="mile">Mile 6.5 · 2,650'</div></div>
+    <div class="leg-body">
+      <h4>Mary's Glen Trail junction · last bailout south of ridge</h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></span>Trail begins steady climb. Last bailout to North-South Lake Campground via Mary's Glen / Rock Shelter trail system.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">2:30</div><div class="mile">Mile 7.5 · 3,000'</div></div>
+    <div class="leg-body">
+      <h4>North Mountain summit <span class="elev">3,180 ft</span></h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></span>Forested. Includes <strong>at least one rock-scramble move where packs may need to come off</strong> — this is the section the AllTrails reviewer noted. Going S→N, you climb it. Slow but workable.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">3:30</div><div class="mile">Mile 8.1 · 3,000'</div></div>
+    <div class="leg-body">
+      <h4>North Point <span class="elev">VIEWPOINT</span></h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></span>The most famous Catskill viewpoint. Open expanse over North-South Lake, the Hudson Valley, and the Berkshires. <strong>30+ min stop here</strong> — and golden-hour photography territory if you've timed it right.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">5:00</div><div class="mile">Mile 9.3 · 3,420'</div></div>
+    <div class="leg-body">
+      <h4>Stoppel Point <span class="elev">3,420 ft</span></h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></span>The high point of Saturday. Plane wreckage just below the summit (small Cessna). The trail descends west from here to the Arizona / camping zone.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">6:00</div><div class="mile">Mile 10.4 · 3,407'</div></div>
+    <div class="leg-body">
+      <h4>Arizona col / camp area · descend to <3,500 ft</h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></span>Drop just below the 3,500-ft contour into the spruce shelf zone. <strong>Dispersed campsites here</strong> — described by an AllTrails reviewer as "the squishiest, most luxurious spruce forest." Multiple flat spots, all need to be 150 ft from trail and water.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">7:00 PM</div><div class="mile">Mile ~12.5 · ~2,650'</div></div>
+    <div class="leg-body">
+      <h4>Dutcher Notch area · <em>alternative camp option</em></h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></span>If the group is moving fast and a closer-to-water site is preferred, push 1.5 mi past Arizona to Dutcher Notch. <strong>Spring 0.4 mi north (down the Dutcher Notch trail) for water</strong>. The notch itself is below 3,500 ft, so legal dispersed camping is possible. This is the <strong>recommended Saturday-night camp for S→N</strong>: it puts the brutal Blackhead climb first thing Sunday morning when legs are freshest.</p>
+    </div>
+  </div>
+
+  <div class="card good" style="margin-top: 24px;">
+    <div class="card-head"><span class="tag">Why camp at Dutcher Notch?</span><h4>It positions Sunday morning's hardest climb at peak energy</h4></div>
+    <p>Camping at Dutcher Notch means waking up at the foot of Blackhead's east face — the trail's hardest climb. Doing it first thing Sunday on fresh legs is ideal. Water is available 0.4 mi off-trail at the Dutcher Notch spring. Sunday total then becomes ~11.4 mi with the Blackhead climb up front and a long, gentle Windham descent at the end.</p>
+  </div>
+</section>
+
+<!-- ============ SUNDAY S→N ============ -->
+<section id="sunday">
+  <div class="day-header">
+    <div class="day-num">SUN</div>
+    <div class="day-info">
+      <h3>Dutcher Notch → NY-23</h3>
+      <div class="day-sub">Aug 30 · Day Two on the Trail (S→N)</div>
+    </div>
+    <div class="day-stats">
+      DISTANCE · <strong>~11.4 mi</strong><br>
+      GAIN · <strong>~2,000 ft</strong><br>
+      LOSS · <strong>~2,500 ft</strong><br>
+      EST. MOVING · <strong>7–9 hr</strong>
+    </div>
+  </div>
+
+  <p style="max-width: 70ch;">The structure of the day: hard then easy. The first 4 miles climb Blackhead, descend its western face to Batavia Kill, and roll across Acra Point. The remaining 7 miles are a long, gentle, switchbacked descent to NY-23 — the friendliest "finish" descent on the entire trail.</p>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">6:30 AM</div><div class="mile">Mile 12.5 · 2,650'</div></div>
+    <div class="leg-body">
+      <h4>Break camp early, fill water at Dutcher Notch spring</h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i></i><i></i><i></i><i></i></span></span>Get an early start. The Blackhead climb is best done before the day heats up.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">7:00</div><div class="mile">Mile 12.7 · 2,800'</div></div>
+    <div class="leg-body">
+      <h4>Begin Blackhead east-face climb <span class="elev">+1,140 ft / 1.1 mi</span></h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="warn"></i></span></span><strong>The hardest climb on the trail.</strong> Eroded rock, scrambles, hand-over-hand sections, and at least one ledge where packs may need to come off. <strong>Take it slow. Use poles. Keep the group close.</strong> Even fit hikers should expect 75–90 min for this section.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">8:30</div><div class="mile">Mile 13.8 · 3,940'</div></div>
+    <div class="leg-body">
+      <h4>Blackhead Mountain summit <span class="elev">HIGH POINT</span></h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></span>You earned this. Forested summit; the views are off the south side just before the top. Junction with the yellow-blazed Blackhead spur. <strong>Snack break and decompression</strong>, 30 min. The hard work of Day 2 is now done.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">9:45</div><div class="mile">Mile 14.7 · 3,200'</div></div>
+    <div class="leg-body">
+      <h4>Descend Blackhead west face <span class="elev">−800 ft</span></h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></span>Steep but cleaner than the east face. Pole use recommended. Drops to the col at Batavia Kill.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">10:30</div><div class="mile">Mile 15.3 · 2,950'</div></div>
+    <div class="leg-body">
+      <h4>Batavia Kill Lean-To spur <span class="elev">+ 0.25 mi</span></h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i></i><i></i><i></i><i></i></span></span>Major water stop. Refill 2+ L per hiker — there's 8.5 mi of trail before NY-23 and a final climb still ahead. The creek is reliable but slow in late summer.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">11:30</div><div class="mile">Mile 17.2 · 3,100'</div></div>
+    <div class="leg-body">
+      <h4>Acra Point <span class="elev">3,100 ft</span> · <em>lunch</em></h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></span>Open ledge facing east over the Hudson Valley. <strong>Lunch break</strong>, 45 min.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">1:00 PM</div><div class="mile">Mile 18.2 · 3,180'</div></div>
+    <div class="leg-body">
+      <h4>Burnt Knob</h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></span>Last named peak before Windham. View south back over Blackhead Range — you'll see where you climbed this morning.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">2:30</div><div class="mile">Mile 20.5 · 3,524'</div></div>
+    <div class="leg-body">
+      <h4>Windham High Peak summit <span class="elev">FINAL SUMMIT</span></h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></span>Open ledge views north over the Adirondacks (clear days). <strong>Final summit photo opportunity.</strong> 20 min stop.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">3:00</div><div class="mile">Mile 20.5 · 3,524'</div></div>
+    <div class="leg-body">
+      <h4>Begin the long descent · 3.4 mi to NY-23</h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></span><strong>This is what S→N gives you.</strong> A switchbacked, dirt-tread descent through hardwoods, losing 1,750 ft over 3.4 miles — a gradient gentle enough that even tired knees can manage it without pain. Easily the friendliest descent of the trip. Pace will be 30–45 min per mile depending on group condition.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">4:30</div><div class="mile">Mile 22.8 · 2,150'</div></div>
+    <div class="leg-body">
+      <h4>Elm Ridge Lean-To junction</h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i></i><i></i><i></i><i></i></span></span>Side trail right to lean-to. Not needed; flat ground from here.</p>
+    </div>
+  </div>
+
+  <div class="leg">
+    <div class="leg-time"><div class="clock">5:00 PM</div><div class="mile">Mile 23.9 · 1,750'</div></div>
+    <div class="leg-body">
+      <h4>NY-23 / Cross Road parking — <em>FINISH</em></h4>
+      <p><span class="difficulty"><span class="diff-bars"><i class="on"></i><i></i><i></i><i></i><i></i></span></span>Bridge over wetland, then road. Group photo at the trailhead sign. Shuttle pass begins.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTINGENCIES S→N ============ -->
+<section id="contingencies">
+  <div class="section-label"><span class="num">§ 06</span> Contingencies for S→N</div>
+  <h2 class="section-title">If <em>things go sideways</em> in this direction.</h2>
+
+  <div class="contingency">
+    <div class="scenario-tag warn">Sat · slow pace</div>
+    <div class="scenario-body">
+      <h4>If we're at Newman's Ledge (mile 5.3) and it's already 1:30 PM</h4>
+      <p>The day is rolling and slow. Camp at <strong>Arizona col (mile 10.4)</strong> instead of Dutcher Notch — saves 2 mi but makes Sunday morning's Blackhead climb start with a 2-mile descent first. Workable.</p>
+    </div>
+  </div>
+
+  <div class="contingency">
+    <div class="scenario-tag warn">Sun · stuck on Blackhead</div>
+    <div class="scenario-body">
+      <h4>If the Blackhead east climb takes longer than 90 min</h4>
+      <p>Don't worry. The rest of the day is gentle. Even a 2.5-hour Blackhead climb still puts the group at Batavia Kill by 11:30 and NY-23 by 6:00 PM. <strong>The bigger risk is bonking on the climb</strong> — eat a real breakfast, eat snacks at every break, and don't let anyone push through silent dehydration.</p>
+    </div>
+  </div>
+
+  <div class="contingency">
+    <div class="scenario-tag warn">Sun · injury on Blackhead</div>
+    <div class="scenario-body">
+      <h4>If someone gets hurt on the east face</h4>
+      <p>The bailout is <strong>back down to Dutcher Notch then 1.9 mi east on the Dutcher Notch Trail to Storks Nest Rd</strong>. This is the easiest off-ridge bailout on the whole trail. After Blackhead's summit, the next bailout is at Big Hollow Rd via the Batavia Kill Trail (mile 15.3, ~1.5 mi descent).</p>
+    </div>
+  </div>
+
+  <div class="contingency">
+    <div class="scenario-tag good">All scenarios</div>
+    <div class="scenario-body">
+      <h4>The Windham descent is the safety net</h4>
+      <p>The final 3.4 mi from Windham summit to NY-23 is the friendliest 3.4 miles on the entire trail. Even an exhausted, dusk-running group can make this stretch in headlamps without much risk. <strong>This is the structural advantage of S→N for tired hikers</strong>: the easiest section of the trail is the section you finish on.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOME-BY S→N ============ -->
+<section id="home-by">
+  <div class="section-label"><span class="num">§ 07</span> Shuttle &amp; Home-By Math</div>
+  <h2 class="section-title">When you'll <em>walk through your door</em>.</h2>
+  <p style="max-width: 70ch;">The drive from NY-23 (Windham area) home to Chatham, NJ is roughly the same as from Schutt Rd: <strong>~2.5 hours</strong> via NY-23 → I-87 south → I-287. The shuttle pass is also identical in shape: 2 drivers shuttle 35 min south to Schutt Rd to retrieve their cars. Same 1.5-hour gap.</p>
+
+  <table class="home-by-table">
+    <thead>
+      <tr>
+        <th>If group finishes at NY-23 at</th>
+        <th>Shuttle complete</th>
+        <th>Depart NY-23</th>
+        <th>Home in Chatham, NJ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>3:30 PM (fast)</td>
+        <td>5:00 PM</td>
+        <td>5:15 PM</td>
+        <td>~7:45 PM</td>
+      </tr>
+      <tr>
+        <td>5:00 PM (target)</td>
+        <td>6:30 PM</td>
+        <td>6:45 PM</td>
+        <td>~9:15 PM</td>
+      </tr>
+      <tr>
+        <td>6:30 PM (slow)</td>
+        <td>8:00 PM</td>
+        <td>8:15 PM</td>
+        <td>~10:45 PM</td>
+      </tr>
+      <tr>
+        <td>8:00 PM (very slow / dusk finish)</td>
+        <td>9:30 PM</td>
+        <td>9:45 PM</td>
+        <td>~12:15 AM</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card note" style="margin-top: 16px;">
+    <div class="card-head"><span class="tag">Note</span><h4>S→N tends to finish later than N→S</h4></div>
+    <p>This is real. With Blackhead's hardest climb stacked on Sunday morning, S→N typically finishes 30–60 min later than the comparable N→S timing. Plan for ~5:00 PM target finish (vs. 4:00 PM in N→S) and a ~9:15 PM home arrival. Worth it for the knee tradeoff if knees are the priority.</p>
+  </div>
+</section>
+
+<!-- ============ FINAL VERDICT ============ -->
+<section id="verdict">
+  <div class="section-label"><span class="num">§ 08</span> Verdict</div>
+  <h2 class="section-title">Should you <em>flip the direction</em>?</h2>
+
+  <div class="recommendation-banner">
+    <div class="label">Recommendation</div>
+    <div class="verdict">If anyone in the group has <strong>known knee issues</strong>, descending stairs at home is uncomfortable, or has had a meniscus / patellar / IT-band history, <strong>flip to S→N</strong>. The reduction in worst-case knee stress is real and meaningful, and the costs (slightly trickier Friday logistics, harder Sunday morning, later finish) are manageable.</div>
+  </div>
+
+  <div class="recommendation-banner" style="background: linear-gradient(90deg, #5e2310 0%, #8a3a1f 100%); margin-top: 16px;">
+    <div class="label">Recommendation</div>
+    <div class="verdict">If knees are <strong>not</strong> a concern in this group, <strong>stick with N→S</strong>. The original plan finishes earlier on Sunday, gets the harder day done first, and saves a quiet finish at Schutt Rd as the natural end of the trip. The "saving the views for last" argument doesn't outweigh the logistical and pacing advantages of N→S for a knee-healthy group.</div>
+  </div>
+
+  <div class="card note" style="margin-top: 18px;">
+    <div class="card-head"><span class="tag">Hybrid option</span><h4>Distribute knee-vulnerable hikers strategically</h4></div>
+    <p>If only 1–2 people in the group have knee concerns and the rest are fine, you can stay with N→S and have those individuals take Blackhead's east descent very slowly with the strongest pole-supported pace. Alternatively, those individuals can use the Black Dome Range Trail bailout at mile 6.1 to skip the Blackhead summit entirely (descending to Big Hollow Rd, getting picked up by a shuttle, and meeting the group at North-South Lake the next day). This is a <em>bigger</em> intervention than flipping the whole group's direction, but for one person with severe knee issues, it might be the right call regardless of the group's chosen direction.</p>
+  </div>
+</section>
+
+<!-- ============ WHAT TO PIN DOWN ============ -->
+<section id="open">
+  <div class="section-label"><span class="num">§ 09</span> Decision Points</div>
+  <h2 class="section-title">What we need to <em>pin down</em>.</h2>
+
+  <div class="two-col">
+    <div>
+      <h3>To make the direction call</h3>
+      <ul class="tight">
+        <li><strong>Survey the group on knee history.</strong> Specifically: anyone with surgeries, recurring knee pain on long descents, or chronic IT-band/patellar issues? One affirmative answer probably tips this to S→N.</li>
+        <li><strong>Are anyone's poles questionable?</strong> Going N→S with a knee-questionable hiker requires confident pole technique on Blackhead east. If poles are missing or technique is poor, S→N has a wider safety margin.</li>
+        <li><strong>Group's tolerance for hard-climbing-on-day-2.</strong> S→N puts the trail's hardest climb on Sunday morning. If anyone in the group is the type to be physically destroyed by Saturday's effort and unable to climb fresh on Sunday, that's an argument <em>against</em> S→N.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>If we choose S→N, do this</h3>
+      <ul class="tight">
+        <li>Book Windham lodging — same recommendation as N→S.</li>
+        <li>Plan the Saturday-morning 35-min drive south to Schutt Rd. Coffee + breakfast for the road. Aim to be on trail by 7:30 AM.</li>
+        <li>Saturday-night camp target: <strong>Dutcher Notch area</strong> if possible (positions Sunday's Blackhead climb at peak energy); fallback Arizona col.</li>
+        <li>Pre-stage finish-line bags in the cars at NY-23 (not Schutt Rd) — clean clothes, sandals, drinks for the post-hike shuttle wait.</li>
+        <li>Eat a real Sunday breakfast at camp — oats, bars, calories. Don't start the Blackhead climb on coffee alone.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h5>This plan vs. the N→S plan</h5>
+      Same trail, same length (23.9 mi), same trip dates, same group, same shuttle vehicles. Differs only in direction and the cascading effects on Friday lodging logistics, Saturday/Sunday mileage split, and Sunday timing.<br><br>
+      <em>For the original N→S plan, see Vol. I, No. 1.</em>
+    </div>
+    <div>
+      <h5>Sources consulted</h5>
+      sectionhiker.com — AMC trip leader account<br>
+      AllTrails — S→N trip report (12.8 / 13.6 mi split)<br>
+      intothebackcountryguides.com — mile-by-mile<br>
+      cnyhiking.com — Blackhead Range detail<br>
+      NY DEC — Windham-Blackhead Range Wilderness<br>
+      cnyhiking.com — Escarpment overview
+    </div>
+    <div>
+      <h5>Final note</h5>
+      Direction is the smaller decision; <strong>group fitness and knee health</strong> are the bigger ones. Survey the group honestly before locking the direction. Either direction works for a fit, knee-healthy team. S→N exists primarily to protect knees on the Blackhead east face.<br><br>
+      <em style="color: var(--teal);">— Compiled April 2026 ·  v1.0 alt</em>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
